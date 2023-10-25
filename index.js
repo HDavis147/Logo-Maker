@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
-
+// Function to generate the final SVG and save it. 
 function generateSVG(results) {
   let finalShape;
 
@@ -12,7 +12,7 @@ function generateSVG(results) {
   } else if (results.shape === 'circle') {
     finalShape = new Circle(results);
   } 
-  
+
   console.log(finalShape);
 }
 
@@ -43,6 +43,12 @@ function prompter(){
       ])
       .then((results) => {
         console.log(results);
+        // Validation for text length
+        if (results.text.length > 3) {
+          console.log('Please enter text with 3 characters or less.');
+          return prompter();
+        } else {
         generateSVG(results);
+        }
       });
 }
